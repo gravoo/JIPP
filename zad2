@@ -1,0 +1,26 @@
+local Merge SMerge X Y Z R in
+    proc {SMerge Xs Ys Zs}
+       case Xs#Ys
+       of nil#Ys then Zs=Ys
+       [] Xs#nil then Zs=Xs
+       [] (X|Xr) # (Y|Yr) then 
+          if X=<Y then Zr in 
+             Zs = X|Zr
+             {SMerge Xr Ys Zr}
+          else Zr in 
+             Zs = Y|Zr
+             {SMerge Xs Yr Zr}
+          end 
+       end 
+    end
+    
+    fun {Merge L1 L2 L3}
+       {SMerge {SMerge L1 L2} L3}
+    end
+    
+    X = 1|2|3|5|22|nil
+    Y = 0|2|3|7|15|nil
+    Z = 4|5|6|nil
+ 
+    {Browse {Merge X Y Z}}
+end

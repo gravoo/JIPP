@@ -1,0 +1,22 @@
+local Append Reverse X Y in
+   fun {Append L1 L2}
+      case L1
+      of nil then L2
+      [] H1|T1 then H1|{Append T1 L2}
+      end
+   end
+   fun {Reverse L}
+      case L
+      of nil then nil
+      [] H|T then {Append {Reverse T} [H]}
+      end
+   end
+   
+   X = 1|2|nil
+   Y = 3|nil
+   {Browse {Append X Y}}
+   {Browse {Reverse {Append X Y}}}
+   {Browse 'Now folding func'}
+   {Browse {FoldR X fun {$ X Y} X|Y end Y}}
+   {Browse {FoldR [1 2 3] fun {$ X Y} Y|X end 4}}
+end

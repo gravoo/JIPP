@@ -1,0 +1,29 @@
+local Tree Insert FindAll Concat in
+   fun {Insert K V T}
+      case T
+      of leaf then tree(K V leaf leaf)
+      [] tree(K1 V1 T1 T2) andthen K == K1 then
+	 tree(K V T1 T2)
+      [] tree(K1 V1 T1 T2) andthen K<K1 then
+	 tree(K1 V1 {Insert K V T1} T2)
+      [] tree(K1 V1 T1 T2) andthen K>K1 then
+	 tree(K1 V1 T1 {Insert K V T2})
+      end
+   end
+   fun {Concat Xs}
+     {FoldR Xs Append nil}
+   end
+   fun {FindAll V T}
+      case T
+      of leaf then nil
+      [] tree(K1 V1 T1 T2) andthen V == V1 then
+	 {Concat [[K1][{FindAll V T1} {FindAll V T2}]]}
+      [] tree(K1 V1 T1 T2) andthen V \= V1 then
+	 {Concat [{FindAll V T1} {FindAll V T2}]}
+      end
+   end
+   
+   Tree = {Insert rsnode 2 {Insert lnode1 1 tree(root 1 leaf leaf)}}
+   {Browse Tree}
+   {Browse {FindAll 2 Tree}}
+end

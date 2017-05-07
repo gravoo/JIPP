@@ -1,0 +1,11 @@
+local Reverse X Y Z in
+   fun{Reverse L}
+      if L.2 == nil then L.1
+	 else {Reverse L.2} | L.1
+      end
+   end
+   
+   X = 1|2|3|5|0|22|nil
+   {Browse X}
+   {Browse {Reverse X}}
+end

@@ -1,0 +1,26 @@
+local Moves P1 P2
+   fun {PlayerPing Xs Id}
+      case Xs of nil then nil
+      [] ping|Xr then
+	 if true then
+	    {Delay 1000}{Browse 'ping'#Id}
+	 end
+	 pong|{PlayerPing Xr Id}
+      end
+   end
+   fun {PlayerPong Xs Id}
+      case Xs of nil then nil
+      [] pong|Xr then
+	 if true then
+	    {Delay 1000}{Browse 'pong'#Id}
+	 end
+	ping|{PlayerPong Xr Id}
+      end
+   end
+	
+in
+   {Browse 'lets play'}
+   Moves = ping|P2
+   thread P1 = {PlayerPing Moves 'player1'} end
+   thread P2 = {PlayerPong P1 'player2'} end
+end
