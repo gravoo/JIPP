@@ -1,0 +1,20 @@
+declare NewPortObject2 Rozmowca R1 R2 in
+fun {NewPortObject2 Proc}
+Sin in
+    thread for Msg in Sin do {Proc Msg} end end
+    {NewPort Sin}
+end
+fun {Rozmowca Fun Interlekutor}
+    {NewPortObject2
+        proc {$ Msg}
+            case
+                Msg of val then
+                Resp={Fun val}
+            in
+                {Send Interlekutor.Resp val}
+            end
+        end}
+end
+R1={Rozmowca fun {$ X} X+1 end R2}
+R2={Rozmowca fun {$ X} X-1 end R1}
+{Send R1 0}
