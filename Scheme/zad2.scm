@@ -20,8 +20,13 @@
                 (operands (cddr wyrazenie)))
             (case operator
                ((+) (list (liczpochodna operand1 zmienna) '+ (liczpochodna operands zmienna)))
+               ((-) (list (liczpochodna operand1 zmienna) '- (liczpochodna operands zmienna)))
                ((*) (list (list (liczpochodna operand1 zmienna) '* (caddr wyrazenie) ) '+
                           (list  operand1 '* (liczpochodna operands zmienna))))
+               ((/) (list (list (liczpochodna operand1 zmienna) '* (caddr wyrazenie) ) '-
+                          (list  operand1 '* (liczpochodna operands zmienna)) '/
+                          (list  (caddr wyrazenie) '* (caddr wyrazenie))
+                          ))
             )
         )))
  )
