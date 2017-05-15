@@ -6,9 +6,6 @@
 (define (pochodna wyrazenie zmienna)
   list (liczpochodna (upraszczacz wyrazenie) zmienna))
 
-(define (dupa)
-  (list 5 5 '()))
-
 (define (liczpochodna wyrazenie zmienna)
   (cond ((number? wyrazenie) 0)
         ((symbol? wyrazenie)
